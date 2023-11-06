@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 
+import "./gameControls.scss"
+
 const countLivingNeighbors = (
   x: number,
   y: number,
@@ -64,7 +66,7 @@ export const GameControls = ({
       return newLivingCells;
     });
   };
-  
+
   const nextGeneration = () => {
     stopInterval();
     advanceGeneration();

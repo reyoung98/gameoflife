@@ -1,0 +1,46 @@
+.config-options {
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  height: 300px;
+
+  button {
+    margin-bottom: 20px;
+  }
+
+  .color-select {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    .box {
+      height: 35px;
+      width: 35px;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &.coral {
+        background-color: lightcoral;
+      }
+  
+      &.aquamarine {
+        background-color: mediumaquamarine;
+      }
+  
+      &.gray {
+        background-color: lightslategrey;
+      }
+  
+      &.blue {
+        background-color: #008ecc;
+      }
+  
+      &.selected {
+        outline: 2px solid black;
+      }
+    }
+
+  }
+}

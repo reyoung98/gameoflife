@@ -1,0 +1,21 @@
+.cell {
+  cursor: pointer;
+  border: 1px solid lightgray;
+  height: 25px;
+  width: 25px;
+}
+
+.living {
+  &.coral {
+    background-color: lightcoral;
+  }
+  &.aquamarine {
+    background-color: mediumaquamarine;
+  }
+  &.gray {
+    background-color: lightslategrey;
+  }
+  &.blue {
+    background-color: #008ecc;
+  }
+}

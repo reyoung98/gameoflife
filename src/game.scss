@@ -1,27 +1,7 @@
 h1 {
   margin-top: 0;
-}
-
-.cell {
-  cursor: pointer;
-  border: 1px solid lightgray;
-  height: 25px;
-  width: 25px;
-}
-
-.living {
-  &.coral {
-    background-color: lightcoral;
-  }
-  &.aquamarine {
-    background-color: mediumaquamarine;
-  }
-  &.gray {
-    background-color: lightslategrey;
-  }
-  &.blue {
-    background-color: #008ecc;
-  }
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
 button {
@@ -36,26 +16,6 @@ button {
   margin: 0 10px; 
 }
 
-.game-controls {
-  margin-top: 30px;
-
-  .next {
-    background-color: lightslategrey;
-    color: white;
-
-  }
-
-  .play {
-    width: 110px;
-    background-color: mediumaquamarine;
-  }
-
-  .pause {
-    width: 110px;
-    background-color: lightcoral;
-  }
-}
-
 button:hover {
   border-color: #646cff;
 }
@@ -63,50 +23,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-.config-options {
-  display: flex;
-  flex-direction: column;
-  margin-left: 30px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  height: 300px;
-
-  button {
-    margin-bottom: 20px;
-  }
-}
-
-.color-select {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-
-  .box {
-    height: 35px;
-    width: 35px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .coral {
-    background-color: lightcoral;
-  }
-
-  .aquamarine {
-    background-color: mediumaquamarine;
-  }
-
-  .gray {
-    background-color: lightslategrey;
-  }
-
-  .blue {
-    background-color: #008ecc;
-  }
-
-  .selected {
-    outline: 2px solid black;
-  }
 }

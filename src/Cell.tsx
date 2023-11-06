@@ -1,6 +1,8 @@
 import "./game.scss";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
+import "./cell.scss"
+
 export const Cell = ({
   x,
   y,

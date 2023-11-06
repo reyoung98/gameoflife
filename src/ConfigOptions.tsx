@@ -9,6 +9,7 @@ import {
 } from "./starting-configs";
 
 import { Colors } from "./Colors";
+import "./configOptions.scss"
 
 export const ConfigOptions = ({
   color,
