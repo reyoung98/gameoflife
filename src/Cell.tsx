@@ -1,5 +1,5 @@
 import "./game.scss";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export const Cell = ({
   x,
@@ -12,10 +12,11 @@ export const Cell = ({
   y: number;
   state: "living" | "dead";
   setLivingCells: Dispatch<SetStateAction<number[][]>>;
-  color: string
+  color: string;
 }) => {
+  const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const handleClick = () => {
+  const changeCellState = () => {
     setLivingCells((prevCells) => {
       const coordinateExists = prevCells.some(
         (cell) => cell[0] === x && cell[1] === y
@@ -29,5 +30,35 @@ export const Cell = ({
     });
   };
 
-  return <div className={`cell ${state} ${color}`} onClick={handleClick}></div>;
+  const handleMouseDown = () => {
+    setIsMouseDown(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+  };
+
+  const handleDrag = () => {
+    if (isMouseDown) {
+      changeCellState();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
+
+  return (
+    <div
+      className={`cell ${state} ${color}`}
+      onClick={changeCellState}
+      onMouseOver={handleDrag}
+    ></div>
+  );
 };
