@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Cell } from "./Cell";
 import { ConfigOptions } from "./ConfigOptions";
 import "./game.scss";
+import { GameControls } from "./GameControls";
 
 export const Game = ({
   numRows,
@@ -12,7 +13,6 @@ export const Game = ({
 }) => {
   const [livingCells, setLivingCells] = useState<number[][]>([]);
   const [color, setColor] = useState<string>("blue");
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
   const livingCoordinates: string[] = livingCells.map((cell) => cell.join());
 
@@ -40,84 +40,6 @@ export const Game = ({
     return cells;
   };
 
-  const countLivingNeighbors = (
-    x: number,
-    y: number,
-    prevLivingCells: number[][]
-  ) => {
-    let numLivingNeighbors = 0;
-
-    for (let livingCell of prevLivingCells) {
-      const [first, second] = livingCell;
-
-      if (
-        Math.abs(first - x) <= 1 &&
-        Math.abs(second - y) <= 1 &&
-        !(first === x && second === y)
-      ) {
-        numLivingNeighbors++;
-      }
-    }
-    return numLivingNeighbors;
-  };
-
-  const advanceGeneration = () => {
-    setLivingCells((prevLivingCells) => {
-      let newLivingCells: number[][] = [];
-
-      for (let x = 0; x < numCols; x++) {
-        for (let y = 0; y < numRows; y++) {
-          const numLivingNeighbors = countLivingNeighbors(
-            x,
-            y,
-            prevLivingCells
-          );
-
-          const isCellLiving = prevLivingCells.some(
-            (cell) => cell[0] === x && cell[1] === y
-          );
-
-          if (
-            isCellLiving &&
-            (numLivingNeighbors === 2 || numLivingNeighbors === 3)
-          ) {
-            newLivingCells.push([x, y]);
-          } else {
-            if (numLivingNeighbors === 3) {
-              newLivingCells.push([x, y]);
-            }
-          }
-        }
-      }
-
-      return newLivingCells;
-    });
-  };
-
-  const clearBoard = () => {
-    setLivingCells([]);
-    stopInterval();
-  };
-
-  const nextGeneration = () => {
-    stopInterval();
-    advanceGeneration();
-  }
-
-  const startInterval = () => {
-    if (!intervalId) {
-      let newIntervalId = setInterval(advanceGeneration, 500);
-      setIntervalId(newIntervalId);
-    }
-  };
-
-  const stopInterval = () => {
-    if (intervalId) {
-      clearInterval(intervalId);
-      setIntervalId(null);
-    }
-  };
-
   return (
     <>
       <div>
@@ -131,24 +53,11 @@ export const Game = ({
         >
           {renderCells()}
         </div>
-        <div className='game-controls'>
-          {intervalId ? (
-            <button className="pause" onClick={stopInterval}>
-              Pause
-            </button>
-          ) : (
-            <button className="play" onClick={startInterval}>
-              Auto play
-            </button>
-          )}
-          <button className="next" onClick={nextGeneration}>
-            Next generation
-          </button>
-
-          <button className="clear" onClick={clearBoard}>
-            Clear board
-          </button>
-        </div>
+        <GameControls
+          setLivingCells={setLivingCells}
+          numCols={numCols}
+          numRows={numRows}
+        />
       </div>
       <ConfigOptions
         color={color}
