@@ -94,4 +94,8 @@ button:focus-visible {
   .blue {
     background-color: #008ecc;
   }
+
+  .selected {
+    outline: 2px solid black;
+  }
 }

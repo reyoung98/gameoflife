@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { Cell } from "./Cell";
+import { ConfigOptions } from "./ConfigOptions";
 import "./game.scss";
-import {
-  diamondConfig,
-  gliderConfig,
-  heartConfig,
-  pulseConfig,
-  squareConfig,
-  stripeConfig,
-} from "./starting-configs";
 
 export const Game = ({
   numRows,
@@ -18,7 +11,7 @@ export const Game = ({
   numCols: number;
 }) => {
   const [livingCells, setLivingCells] = useState<number[][]>([]);
-  const [color, setColor] = useState<string>('blue')
+  const [color, setColor] = useState<string>("blue");
 
   const livingCoordinates: string[] = livingCells.map((cell) => cell.join());
 
@@ -94,15 +87,7 @@ export const Game = ({
     setLivingCells([]);
   };
 
-  const selectConfig = (config: number[][]) => {
-    setLivingCells(config)
-  }
-
   console.log("livingCells", livingCells);
-
-  const selectColor = (color: string) => {
-    setColor(color)
-  }
 
   return (
     <>
@@ -124,22 +109,11 @@ export const Game = ({
           Clear board
         </button>
       </div>
-      <div className="config-options">
-        <p>Choose starting configuration</p>
-        <button onClick={() => selectConfig(pulseConfig)}>Pulse</button>
-        <button onClick={() => selectConfig(gliderConfig)}>Gliders</button>
-        <button onClick={() => selectConfig(heartConfig)}>Heart</button>
-        <button onClick={() => selectConfig(stripeConfig)}>Stripes</button>
-        <button onClick={() => selectConfig(squareConfig)}>Squares</button>
-        <button onClick={() => selectConfig(diamondConfig)}>Diamonds</button>
-        <div className="color-select">
-          <div className="box coral" onClick={() => selectColor('coral')}></div>
-          <div className="box aquamarine" onClick={() => selectColor('aquamarine')}></div>
-          <div className="box gray" onClick={() => selectColor('gray')}></div>
-          <div className="box blue" onClick={() => selectColor('blue')}></div>
-        </div>
-          <p>View on <a target='_blank' href='https://github.com/reyoung98/gameoflife'>Github</a></p>
-      </div>
+      <ConfigOptions
+        color={color}
+        setColor={setColor}
+        setLivingCells={setLivingCells}
+      />
     </>
   );
 };
