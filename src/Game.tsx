@@ -12,6 +12,7 @@ export const Game = ({
 }) => {
   const [livingCells, setLivingCells] = useState<number[][]>([]);
   const [color, setColor] = useState<string>("blue");
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
   const livingCoordinates: string[] = livingCells.map((cell) => cell.join());
 
@@ -39,10 +40,14 @@ export const Game = ({
     return cells;
   };
 
-  const countLivingNeighbors = (x: number, y: number) => {
+  const countLivingNeighbors = (
+    x: number,
+    y: number,
+    prevLivingCells: number[][]
+  ) => {
     let numLivingNeighbors = 0;
 
-    for (let livingCell of livingCells) {
+    for (let livingCell of prevLivingCells) {
       const [first, second] = livingCell;
 
       if (
@@ -57,37 +62,61 @@ export const Game = ({
   };
 
   const advanceGeneration = () => {
-    let newLivingCells = [];
+    setLivingCells((prevLivingCells) => {
+      let newLivingCells: number[][] = [];
 
-    for (let x = 0; x < numCols; x++) {
-      for (let y = 0; y < numRows; y++) {
-        const numLivingNeighbors = countLivingNeighbors(x, y);
+      for (let x = 0; x < numCols; x++) {
+        for (let y = 0; y < numRows; y++) {
+          const numLivingNeighbors = countLivingNeighbors(
+            x,
+            y,
+            prevLivingCells
+          );
 
-        const isCellLiving = livingCells.some(
-          (cell) => cell[0] === x && cell[1] === y
-        );
+          const isCellLiving = prevLivingCells.some(
+            (cell) => cell[0] === x && cell[1] === y
+          );
 
-        if (
-          isCellLiving &&
-          (numLivingNeighbors === 2 || numLivingNeighbors === 3)
-        ) {
-          newLivingCells.push([x, y]);
-        } else {
-          if (numLivingNeighbors === 3) {
+          if (
+            isCellLiving &&
+            (numLivingNeighbors === 2 || numLivingNeighbors === 3)
+          ) {
             newLivingCells.push([x, y]);
+          } else {
+            if (numLivingNeighbors === 3) {
+              newLivingCells.push([x, y]);
+            }
           }
         }
       }
-    }
 
-    setLivingCells(newLivingCells);
+      return newLivingCells;
+    });
   };
 
   const clearBoard = () => {
     setLivingCells([]);
+    stopInterval();
   };
 
-  console.log("livingCells", livingCells);
+  const nextGeneration = () => {
+    stopInterval();
+    advanceGeneration();
+  }
+
+  const startInterval = () => {
+    if (!intervalId) {
+      let newIntervalId = setInterval(advanceGeneration, 500);
+      setIntervalId(newIntervalId);
+    }
+  };
+
+  const stopInterval = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
+  };
 
   return (
     <>
@@ -102,12 +131,24 @@ export const Game = ({
         >
           {renderCells()}
         </div>
-        <button className="next" onClick={advanceGeneration}>
-          Next generation
-        </button>
-        <button className="clear" onClick={clearBoard}>
-          Clear board
-        </button>
+        <div className='game-controls'>
+          {intervalId ? (
+            <button className="pause" onClick={stopInterval}>
+              Pause
+            </button>
+          ) : (
+            <button className="play" onClick={startInterval}>
+              Auto play
+            </button>
+          )}
+          <button className="next" onClick={nextGeneration}>
+            Next generation
+          </button>
+
+          <button className="clear" onClick={clearBoard}>
+            Clear board
+          </button>
+        </div>
       </div>
       <ConfigOptions
         color={color}

@@ -31,17 +31,28 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  // background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-  &.next {
-    margin-top: 30px;
-    background-color: mediumaquamarine;
-  }
-  &.clear {
+  margin: 0 10px; 
+}
+
+.game-controls {
+  margin-top: 30px;
+
+  .next {
     background-color: lightslategrey;
     color: white;
-    margin-left: 20px;
+
+  }
+
+  .play {
+    width: 110px;
+    background-color: mediumaquamarine;
+  }
+
+  .pause {
+    width: 110px;
+    background-color: lightcoral;
   }
 }
 
