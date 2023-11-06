@@ -6,7 +6,7 @@ import {
   gliderConfig,
   heartConfig,
   pulseConfig,
-  quiltConfig,
+  squareConfig,
   stripeConfig,
 } from "./starting-configs";
 
@@ -94,29 +94,9 @@ export const Game = ({
     setLivingCells([]);
   };
 
-  const selectPulseConfig = () => {
-    setLivingCells(pulseConfig);
-  };
-
-  const selectGliderConfig = () => {
-    setLivingCells(gliderConfig);
-  };
-
-  const selectHeartConfig = () => {
-    setLivingCells(heartConfig);
-  };
-
-  const selectStripeConfig = () => {
-    setLivingCells(stripeConfig);
-  };
-
-  const selectQuiltConfig = () => {
-    setLivingCells(quiltConfig);
-  };
-
-  const selectDiamondConfig = () => {
-    setLivingCells(diamondConfig);
-  };
+  const selectConfig = (config: number[][]) => {
+    setLivingCells(config)
+  }
 
   console.log("livingCells", livingCells);
 
@@ -146,12 +126,12 @@ export const Game = ({
       </div>
       <div className="config-options">
         <p>Choose starting configuration</p>
-        <button onClick={selectPulseConfig}>Pulse</button>
-        <button onClick={selectGliderConfig}>Gliders</button>
-        <button onClick={selectHeartConfig}>Heart</button>
-        <button onClick={selectStripeConfig}>Stripes</button>
-        <button onClick={selectQuiltConfig}>Quilt</button>
-        <button onClick={selectDiamondConfig}>Diamonds</button>
+        <button onClick={() => selectConfig(pulseConfig)}>Pulse</button>
+        <button onClick={() => selectConfig(gliderConfig)}>Gliders</button>
+        <button onClick={() => selectConfig(heartConfig)}>Heart</button>
+        <button onClick={() => selectConfig(stripeConfig)}>Stripes</button>
+        <button onClick={() => selectConfig(squareConfig)}>Squares</button>
+        <button onClick={() => selectConfig(diamondConfig)}>Diamonds</button>
         <div className="color-select">
             <div className="box coral" onClick={() => selectColor('coral')}></div>
           <div className="box aquamarine" onClick={() => selectColor('aquamarine')}></div>
