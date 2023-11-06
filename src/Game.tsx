@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Cell } from "./cell";
+import { Cell } from "./Cell";
 import "./game.scss";
 import {
   diamondConfig,
@@ -93,10 +93,6 @@ export const Game = ({
   const clearBoard = () => {
     setLivingCells([]);
   };
-
-  const selectConfig = (config: number[][]) => {
-    setLivingCells(config);
-  }; // why doesn't this work?
 
   const selectPulseConfig = () => {
     setLivingCells(pulseConfig);
