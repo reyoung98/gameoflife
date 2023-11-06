@@ -108,7 +108,7 @@ export const Game = ({
     <>
       <div>
         <h1>Game of Life</h1>
-        <p>Click a cell to set its state</p>
+        <p>Click a cell to set its state. Click and drag for easy drawing.</p>
         <div
           style={{
             display: "grid",
@@ -133,11 +133,12 @@ export const Game = ({
         <button onClick={() => selectConfig(squareConfig)}>Squares</button>
         <button onClick={() => selectConfig(diamondConfig)}>Diamonds</button>
         <div className="color-select">
-            <div className="box coral" onClick={() => selectColor('coral')}></div>
+          <div className="box coral" onClick={() => selectColor('coral')}></div>
           <div className="box aquamarine" onClick={() => selectColor('aquamarine')}></div>
           <div className="box gray" onClick={() => selectColor('gray')}></div>
           <div className="box blue" onClick={() => selectColor('blue')}></div>
         </div>
+          <p>View on <a target='_blank' href='https://github.com/reyoung98/gameoflife'>Github</a></p>
       </div>
     </>
   );
