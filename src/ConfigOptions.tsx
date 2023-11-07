@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import {
-  diamondConfig,
+  butterflyConfig,
   gliderConfig,
   heartConfig,
   pulseConfig,
@@ -9,7 +9,7 @@ import {
 } from "./starting-configs";
 
 import { Colors } from "./Colors";
-import "./configOptions.scss"
+import "./configOptions.scss";
 
 export const ConfigOptions = ({
   color,
@@ -28,7 +28,7 @@ export const ConfigOptions = ({
       <button onClick={() => setLivingCells(heartConfig)}>Heart</button>
       <button onClick={() => setLivingCells(stripeConfig)}>Stripes</button>
       <button onClick={() => setLivingCells(squareConfig)}>Squares</button>
-      <button onClick={() => setLivingCells(diamondConfig)}>Diamonds</button>
+      <button onClick={() => setLivingCells(butterflyConfig)}>Butterfly</button>
       <Colors color={color} setColor={setColor} />
       <p>
         View on{" "}

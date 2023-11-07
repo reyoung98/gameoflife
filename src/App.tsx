@@ -4,7 +4,7 @@ import { Game } from "./Game";
 function App() {
   return (
     <div className='main'>
-      <Game numCols={30} numRows={15} />
+      <Game numCols={31} numRows={15} />
     </div>
   );
 }
